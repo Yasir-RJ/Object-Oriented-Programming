@@ -1,0 +1,31 @@
+
+In this laboratory you will implement inheritance and interface, input and output with currents and error handling with exceptions. The laboratory assumes that you have knowledge corresponding to lecture and exercise 1 - 6.
+The code must be well written with care laid on, among other things, descriptive variable and method name comments and, in task B, on documentation of classes and methods with javadoc comments
+
+Accounting, grades
+The tasks are solved and reported in par1; both participants must be approved in laboratory 1 and 2.
+Each group member must be able to answer for all parts of the solution when reporting.
+The code for all classes in Part B, except UserInterface, must be documented with javadoc comments. To pass, it is required that both tasks A and B are solved and that a so-called Code review
+carried out after the presentation, see separate information on the course page.
+
+Task A: Figures with inheritance
+Introduction
+The task is to create a hereditary hierarchy for different types of shapes that can be drawn on a drawing surface.
+The abstract super-class Shape defines everything that is common to various drawable objects, such as position, color and speed. Your task is to create subclasses such as Circle, Line and others. the class diagram below shows which classes are to be defined. The code for the Shape class can be found on the course page.
+Note that you may not use javafx.scene.shape.Shape, or subclasses, in your solution - the task is to implement the inheritance hierarchy on your own.
+Shape objects are handled in the World class. An object of type World has an array of Shape references that keep track of objects of the different subtypes in your inheritance hierarchy. World keeps the figures within a limited area by calling the method constrain (…) on the shape objects.
+
+Requirements for the solution:
+• What is private in the given version of Shape must also be in your solution.
+• The classes, data members and methods found in the UML diagram above must be included in the solution. Inherited (private) data members should not be "declared" in the subclasses.
+• Redefine the methods paint, constrain and possibly move in the subclasses - the method constrain so that a figure bounces correctly when any part of it reaches the edge of the boundary surface.
+• The FillableShape class is an abstract class that defines shapes that can be filled. The data member filled indicates whether the figure should be drawn filled or not. In the subclasses Circle and Rectangle, paint must draw filled figures if filled is true, otherwise unfilled.
+• The figures are created and moved in World, and drawn in the App. The array shapes contains references of the base type, Shape. All manipulation of the figures must take place via this array (may be replaced by a list). When reporting this information, you should be able to (((explain what is meant by polymorphism and dynamic binding and where this is used in your code.))))
+
+• In the program, you must show somewhere that you can distinguish the objects that are subtypes of FillableShape and call setFilled to change from filled to unfilled or vice versa. Use the instanceof operator to find the mentioned objects
+
+About drawing, the class javafx.scene.canvas.GraphicsContext
+Use the GraphicsContext object passed as a parameter to the paint method. Study the code example, CanvasTest.java, which is available on the course web and read the API documentation. It is especially important to understand what the arguments for the methods of drawing represent (relative or absolute coordinates?).
+
+Tip
+Start by creating a single subclass, preferably Line, and check that it can be used with World and App. Only then is it time to create other subclasses.

@@ -1,0 +1,1 @@
+SlidingPuzzle, which represents data and logic for a so-called 15 games

@@ -1,0 +1,63 @@
+
+Task B: Book collection
+
+Introduction
+In this task, you should write a simple register program to store and search for information about the books you have at home on the bookshelf and / or digitally. The information about the books is stored on a file that is loaded at program start and which is saved in a new version when the program ends.
+The program should have a simple text-based user interface that communicates with the class CollectionsOfBooks, which in itself has a list of book objects and provides methods for e.g. add books and search for books. The class diagram below shows the classes needed.
+Note most methods and many data members are missing in this diagram.
+
+Book and Author
+It should not be possible to change the name and ISBN and genre of a book after the book has been created. A book can have from one to several authors. Author should be a class of its own.
+The Book class will implement the java.lang.Comparable <T> interface so that books can be ranked, with title as the first key and "rating" the second key. The method equals (…), which is inherited from the superclass Object, must then also be redefined, so that the methods logically match.
+
+Classes Isbn
+Since an ISBN (for identification of printed media) must follow a certain format, this must be represented by a separate class. There must be a class method, static, which, given a text representing an ISBN, returns a new Isbn object. If input is entered incorrectly, an IllegalIsbnException must be discarded. The Exception class will inherit from RuntimeException.
+You should check that the text that is to represent the ISBN contains 13 digits and any "-": String isbnStr =…; isbnStr = isbnStr.replace ("-", ""); // remove all ”-” boolean match = isbnStr.matches ("[0-9] {13}"); // check if 13 digits
+The last sentence is a so-called regular expression, a notation for describing and comparing texts.
+Model this class after the class relations.rental.Pnr class from the exercise "relations between objects".
+
+CollectionOfBooks
+The CollectionOfBooks class stores book items in a list, and defines methods for searching and manipulating the list. The class should not contain any code for communication with the user.
+CollectionOfBooks must at least have methods to
+• add a book object - the method should, if called with null as an argument, throw the appropriate exception with message,
+• delete a given book item,
+• search for objects by title, author name and ISBN, see below.
+
+Search, the design pattern Strategy
+A search should return a temporary and sorted list of matching book items. It should be possible to search for substrings - use equalsIgnoreCase and contains in the class String.
+The search takes place in basically the same way regardless of whether you search by title, ISBN or author name.
+Instead of writing several, similar, search methods, the design pattern Strategy should be implemented. Write an interface, BookMatcher, with an abstract method boolean matches (Book). Then implement the interface in three cases, for the three different search criteria above. The search string is given to the match constructor.
+The searchForBooks (BookMatcher matches) method in CollectionsOfBooks iterates over the book list, calls matches.matches for each book, and adds, if the book matches, to the reference in it temporary list.
+
+UserInterface
+This class receives input from the user and presents information to the user. The method menu contains a loop that presents the options the user has and, based on the user's choice, calls the appropriate method in CollectionOfBooks (use a switch statement).
+The following options should at least be in the menu:
+• Add books
+• Delete books
+• Search by title, author or ISBN.
+• List all books.
+• Exit and write all information to file.
+
+BooksIO, file management
+At the start, the program must read in information about the books from the file. If an exception is thrown, e.g. because the file does not exist, a message about it must be printed and an empty list created. When the application ends, the file should be overwritten with the new content. File management is done in a separate class, BooksIO, with two class methods (static) for reading from each write to file. The file name should be given as an argument to the methods, not hardcoded,
+Use object serialization, see course book. This requires the Book and Author classes to implement the Serializable interface. It is enough to write the list that contains the books to the file.
+
+Tips for solving the problem
+Solve one part of the problem at a time. Start with Book, Genre, Isbn and Author and test the functionality.
+Only then is it appropriate to create the class CollectionsOfBooks. Test that you can add and remove books before you start your search. Then add the file manager and finally the user interface
+
+
+Two clarifications about laboratory work 3:
+
+Strategy in CollectionOfBooks: Book matches, and implementations, are missing from the class diagram, but should be included in the solution.
+When matching text strings, it is sufficient to use the contains method in the String class (it cannot be meaningfully combined with equalsIgnoreCase). Optionally, both strings can be converted to uppercase letters before matching, so that both uppercase and lowercase letters match, but this is not a requirement.
+
+
+
+
+
+
+
+
+
+
